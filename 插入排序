@@ -1,0 +1,45 @@
+#define _CRT_SECURE_NO_WARNINGS 1
+#include<stdio.h>
+#include <stdlib.h>
+#include <math.h>
+
+//在第i次排序中，前i-1个元素始终是有序的，
+//此时只需把第i个元素插入到有序的序列中即可，故代码中体现的是插入排序的思想。
+void  insertion_sort(int* arr, int sz)
+{
+    int i, j, tmp;
+    for (i = 1; i < sz; i++)//将数组第i个元素抽出来 存入临时变量tmp 
+    {    
+        tmp = arr[i];
+        for (j = i; j > 0; j--)//j》0为临界了。。 因为下面arr[j-1]
+        {
+            if (arr[j-1] > tmp)  //数组第i个变量和之前一个对比 若需要交换 则从后往前覆盖一直循环 最后卡出要插入的位置j
+            {
+                arr[j] = arr[j-1];   //此处的其实可以直接整合for 里的j判断  （j>0&&arr[j] > tmp）则执行语句
+            }
+            else
+                break;                
+        }
+        arr[j] = tmp;
+
+    }
+    
+}
+
+int main()
+{
+    int i, sz;
+    int arr[] = {2,4,5,1,5,7,9,1};
+    //计算数组大小
+    sz = sizeof(arr) / sizeof(arr[0]);
+    //插入排序
+    insertion_sort(arr,sz);
+
+
+
+    //打印数组
+    for (i = 0; i < sz; i++)
+        printf("%d ",arr[i]);
+    printf("\n");
+    return 0;
+}

@@ -1,0 +1,69 @@
+#define _CRT_SECURE_NO_WARNINGS 1
+#include <stdio.h>
+#include <string.h>
+
+//注意理解 L R （卡位置）与 操作变量  left  right之间得因果传参 操作关系
+void  My_qsort(int *arr,int L,int R)
+{
+    if (L >= R)  
+        return;  //递归结束
+    int flag, left=L, right=R;
+    flag = arr[left];
+    //开始轮转
+    while (left < right)
+    {
+        
+        while (left < right)//从right操作
+        {
+            if (arr[right] < flag)
+            {
+                arr[left] = arr[right];
+                left++;
+                break;//右边有转左边得了，开始从左操作。。
+            }
+            else //left < =right
+            {
+                right--;
+            }
+        }
+        while (left < right)//从left操作
+        {
+            if (arr[left] > flag)
+            {
+                arr[right] = arr[left];
+                right--;
+                break;
+            }
+            else //left < =right
+            {
+                left++;
+            }
+        }
+       
+        
+    }
+    
+    arr[right] = flag;
+
+    My_qsort(arr,L,right-1);//左 子字符串
+    My_qsort(arr,right+1,R);//右 子字符串 //这里绝绝子，，，，，，，，，卡的到位
+
+    //递归上述类似操作 最后完成排序！
+}
+
+
+
+int main()
+{
+    int arr[] = { 5,3,6,7,1,6,2,8,9,55 };
+    int sz = 10;
+    int i = 0;;
+    
+    int L = 0;
+    int R = sz-1; //L R  开始就是arr的两端
+    My_qsort(arr,L,R);
+
+    for (i = 0; i < sz; i++)
+        printf("%d ",arr[i]);
+    return 0;
+}

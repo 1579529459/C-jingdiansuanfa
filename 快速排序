@@ -1,69 +1,56 @@
+快排  究极无敌版！
+
 #define _CRT_SECURE_NO_WARNINGS 1
 #include <stdio.h>
-#include <string.h>
+#include<stdio.h>
 
-//注意理解 L R （卡位置）与 操作变量  left  right之间得因果传参 操作关系
-void  My_qsort(int *arr,int L,int R)
+void Swap(int* a, int* b)
 {
-    if (L >= R)  
-        return;  //递归结束
-    int flag, left=L, right=R;
-    flag = arr[left];
-    //开始轮转
-    while (left < right)
-    {
-        
-        while (left < right)//从right操作
-        {
-            if (arr[right] < flag)
-            {
-                arr[left] = arr[right];
-                left++;
-                break;//右边有转左边得了，开始从左操作。。
-            }
-            else //left < =right
-            {
-                right--;
-            }
-        }
-        while (left < right)//从left操作
-        {
-            if (arr[left] > flag)
-            {
-                arr[right] = arr[left];
-                right--;
-                break;
-            }
-            else //left < =right
-            {
-                left++;
-            }
-        }
-       
-        
-    }
-    
-    arr[right] = flag;
-
-    My_qsort(arr,L,right-1);//左 子字符串
-    My_qsort(arr,right+1,R);//右 子字符串 //这里绝绝子，，，，，，，，，卡的到位
-
-    //递归上述类似操作 最后完成排序！
+    int tmp;
+    tmp = *a;
+    *a = *b;
+    *b = tmp;
 }
 
+void  Quick_Sort(int arr[],int l,int r)
+{
+    //递归停止！！！！
+    if (l >= r) return;//ending递归结束！  虽有子区域排序完毕
+    int x = arr[l];
+    int i = l - 1, j = r + 1;;//小越界，配合do while卡位置;
+    while (i < j)
+    {
+        do i++; while (arr[i] < x);//核心思想  左边 《=x 右边》=x 所以do while的（）里判断是《or》 分别卡出为(》=和《=再交换)
+        do j--; while (arr[j] > x);
+        
+        if(i<j) Swap(arr + i, arr + j);//注意这个if别丢 不然瞎交换了
 
+        
+    }
+    Quick_Sort(arr,l,j);//递归 分治
+    Quick_Sort(arr,j+1,r );
+
+
+    
+}
 
 int main()
 {
-    int arr[] = { 5,3,6,7,1,6,2,8,9,55 };
-    int sz = 10;
-    int i = 0;;
+    int n,i,l,r;
+    int arr[100000];
+    //录入
+    scanf("%d",&n);
+    for (i = 0; i < n; i++) scanf("%d", arr + i);
     
-    int L = 0;
-    int R = sz-1; //L R  开始就是arr的两端
-    My_qsort(arr,L,R);
+    l = 0;
+    r = n - 1;
+    Quick_Sort(arr,l,r);
 
-    for (i = 0; i < sz; i++)
-        printf("%d ",arr[i]);
+
+    //输出
+    for (i = 0; i < n; i++) printf("%d ",arr[i]);
+    
+
+
     return 0;
 }

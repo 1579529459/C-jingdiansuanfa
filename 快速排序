@@ -18,7 +18,7 @@ void  Quick_Sort(int arr[],int l,int r)
     int i = l - 1, j = r + 1;;//小越界，配合do while卡位置;  //注意i，j l  r  的关系和作用！！！ lr不能变 后面递归卡子范围的
     while (i < j)
     {
-        do i++; while (arr[i] < x);//核心思想  左边 《=x 右边》=x 所以do while的（）里判断是《or》 分别卡出为(》=和《=再交换)
+        do i++; while (arr[i] < x);//  核心思想 与二分有点不一样！  要求：一个迭代后 驻点 左边 都《=x  驻点 右边 都》=x 所以do while的（）里判断是<or>, ！！！分别卡出为(左边的》=和 和右边的《=   再交换)！！！
         do j--; while (arr[j] > x);
         
         if(i<j) Swap(arr + i, arr + j);//注意这个if别丢 不然瞎交换了

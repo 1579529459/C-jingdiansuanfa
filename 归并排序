@@ -1,0 +1,41 @@
+#define _CRT_SECURE_NO_WARNINGS 1
+#include<stdio.h>
+
+int arr[100100];
+int tmp[100100];
+void merge_sort(int arr[], int l, int r)
+{
+	if (l >= r) return;
+	int mid = l + r >> 1;
+	merge_sort(arr, l, mid); merge_sort(arr, mid + 1, r);//先递归 最后排(双行 双指针排位)
+	int i = l, j = mid + 1; int k = 0;
+	while (i <= mid && j <= r)
+	{
+		if (arr[i] > arr[j]) tmp[k++] = arr[j++];
+		else tmp[k++] = arr[i++];
+	}                                         // k 每次拍的时候都置为0  最后是 排好序 子数组的总长度
+	while (i <= mid) tmp[k++]=arr[i++];
+	while (j <= r) tmp[k++] = arr[j++];
+
+	for (i = l, j = 0; i <= r; i++, j++) arr[i] = tmp[j];				//重点合并！ 每次拆成 l mid mid+1 r 所以合并成 l r
+}								//注意 i<=r  而不是 i<=k！！！  因为 arr[i--r]  塞到arr里对应位置的l~r  不只是简单k(tmp元素)数量问题
+
+
+
+int main()
+{
+	
+	int l, r, n,i;
+	scanf("%d",&n);
+	for (i = 0; i < n; i++) scanf("%d",arr+i);
+	l = 0, r = n - 1;
+
+	merge_sort(arr,l,r);
+
+	for (i = 0; i < n; i++) printf("%d ",arr[i]);
+
+	
+
+
+
+}

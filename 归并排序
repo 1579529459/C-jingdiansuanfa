@@ -9,11 +9,12 @@ void merge_sort(int arr[], int l, int r)
 	int mid = l + r >> 1;
 	merge_sort(arr, l, mid); merge_sort(arr, mid + 1, r);//先递归 最后排(双行 双指针排位)
 	int i = l, j = mid + 1; int k = 0;
+	//下方mid，r都是下标的临界噢 不是大小    
 	while (i <= mid && j <= r)
 	{
 		if (arr[i] > arr[j]) tmp[k++] = arr[j++];
 		else tmp[k++] = arr[i++];
-	}                                         // k 每次拍的时候都置为0  最后是 排好序 子数组的总长度
+	}       //下方mid，r都是下标的临界噢 不是大小                                  // k 每次拍的时候都置为0  最后是 排好序 子数组的总长度
 	while (i <= mid) tmp[k++]=arr[i++];
 	while (j <= r) tmp[k++] = arr[j++];
 

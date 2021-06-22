@@ -1,0 +1,39 @@
+#define _CRT_SECURE_NO_WARNINGS 1
+#include <stdio.h>
+#include <string.h>
+
+//其实 c++ 中的 vctor容器 很好的解决了数组动态的长度 边界问题，，，
+char* Add(char a[], char b[],int alen,int blen,int c[])
+{
+	int t = 0;
+	int i = 0;
+	for (i = 0; i < alen || i < blen; i++)
+	{
+		if (i < alen) t += a[i]-'0';//一位一位加
+		if (i < blen) t += b[i]-'0';//这里巧妙地字符偏移量eg'1' - '0'=1
+		c[i] = t % 10;				//将字符操作成 整数！
+		t /= 10;
+	}
+	if (t) c[i]=1;
+	return c;
+}
+
+//计算32位数  加 18 位数
+int main()
+{                               
+	int i=0;
+	int alen = 32, blen = 3;
+	//以字符数组倒着录入长整数
+	char a[10010],b[10010];
+	int c[100] = {0}; //注意 最后 整的是一个整型数组!  因为 % 放入每位的操作%  只能是整数
+	
+	for (i = alen - 1; i >= 0; i--) scanf(" %c",a+i);
+	for (i = blen - 1; i >= 0; i--) scanf(" %c", b+i);
+	
+	Add(a, b,alen,blen,c);
+	
+	if (c[alen] != 0) printf("%d",c[alen]); //特判最后进位情况
+	for (i = alen-1 ; i >= 0; i--) printf("%d",c[i]);
+
+	return 0;
+}

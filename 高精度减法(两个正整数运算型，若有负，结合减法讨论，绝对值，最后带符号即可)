@@ -4,7 +4,15 @@
 #include <string.h>
 // 高精度减法！！前提 大减小  eeg：    a<b    a - b = -(b-a)    a>b  a-b = a-b 直接减
 //其实 c++ 中的 vctor容器 很好的解决了数组动态的长度 边界问题，，，
-================================================================从低位开始的核心操作部分====================================================================================
+================================================================从低位开始的核心操作部分====================================================================================int 
+int cmp(char a[],char b[])
+{
+	if(alen!=blen) return alen>blen;
+	for(i=alen-1;i>=0;i--)//长度相等情况 高位比大小
+	if(a[i]!=b[i])
+		return a[i]>b[i];     两个巧妙地return 直接返回出的值，就能看出谁大谁小！！！
+	return true;//相等情况
+}
 char* Sub(char a[], char b[], int alen, int blen, int c[])
 {
 	int t = 0;
@@ -44,12 +52,18 @@ int main()
 	{
 		tb[j++] = b[i];
 	}
-
-	Sub(ta, tb, alen, blen, c);
-
+	
+	if(cmp(a,b))
+	//a字符串cmp后大于b的情况 eg “1234”>“223”   cmp函数得自己搞一个噢
+		Sub(ta, tb, alen blen, c);
+	
 
 	
+	else 	for (i =  max- 1; i >= 0; i--) printf("%d", c[i]);
+		//a字符串cmp后小于b的情况 eg “1234”>“2232”
+		Sub(tb, ta, alen blen, c);
+	
+	PRINTF('-');//打印 - 号
 	for (i =  max- 1; i >= 0; i--) printf("%d", c[i]);
-
 	return 0;
 }

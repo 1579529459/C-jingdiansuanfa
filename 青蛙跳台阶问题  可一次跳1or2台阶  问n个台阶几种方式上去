@@ -6,21 +6,25 @@
 
 ！！记思想噢
 
+
+#define _CRT_SECURE_NO_WARNINGS 1
 #include <stdio.h>
 int main()
 {
-    int n,sum,a[n],i;
-    scanf("%d",&n);
-    if(n<4)
+    int n, sum, a[1000], i;
+    scanf("%d", &n);
+    if (n < 4)
     {
-        printf("%d",sum);     n若为（0~3） 则对应的 总方法数就是n自己（比较特殊吧233）没关系啦
-    {
-        a[2]=2;
-        a[3]=3;
-        for(i=4;i<=n;i++)
-        {
-            a[i]=a[i-1]+a[i-2];
-        }
-        printf("%d",a[n]);
+        printf("%d", n);           n若为（0~3） 则对应的 总方法数就是n自己（比较特殊吧233）没关系啦
+        return 0;
     }
+       
+    a[2] = 2;
+    a[3] = 3;
+    for (i = 4; i <= n; i++)
+    {
+        a[i] = a[i - 1] + a[i - 2];
+    }
+    printf("%d", a[n]);
+    
 }

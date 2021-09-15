@@ -1,0 +1,61 @@
+#include"Queue.h"
+void Swap(int* a, int* b)
+{
+	int tmp = *a;
+	*a = *b;
+	*b = tmp;
+}
+
+
+
+void Step(int *arr,int n,int parent)//一次向下调整
+{
+	
+	int leftchild = parent * 2 + 1;
+	while (leftchild<n)
+	{
+		if ((leftchild + 1 < n) && (arr[leftchild + 1] > arr[leftchild]))//此处if设计意为leftchild最后为孩子中小的一个
+		{
+			leftchild++;
+		}
+
+		if (arr[leftchild] > arr[parent])//大根堆
+		{
+			Swap(&arr[leftchild], &arr[parent]);
+			parent = leftchild;
+			leftchild = parent * 2 + 1;
+		}
+		else
+		{
+			break;
+		}
+	
+	}
+	
+	
+}
+void HeapSort(int* arr, int n)
+{
+	//先建立小/大根堆！O(n)!!! //升序 则大根堆 因为要把root的最大值一次放在最后面 这样子排！
+	for (int i = (n-2) / 2; i >= 0  ; i--)
+	{
+		Step(arr,n,i);
+	}
+	//再每次Step一下 把root的最值和数组尾巴交换 再n长度减一！！ O(n*logN)!!
+	while (n>0)
+	{
+		Step(arr,n,0);
+		Swap(&arr[0],&arr[n-1]);
+		n--;
+	}
+}
+int main()
+{
+	int arr[] = { 19,5,6,8,2,4,1,76 };
+	int n = 8;
+	//int arr2[] = { 11,5,10,10,12,13,14 };
+	//Step(arr2,n,0);
+	HeapSort(arr, n);
+	for (int i = 0; i < n; i++) printf("%d ", arr[i]);
+	return 0;
+}
